@@ -20,9 +20,9 @@ public class Voo {
 
 	public Voo(String numeroVoo, String companhiaAerea, LocalDateTime horarioEmbarque, LocalDateTime horarioSaida,
 			String destino) {
-		verificarDados(numeroVoo, this.numeroVoo);
-		verificarDados(companhiaAerea, this.companhiaAerea);
-		verificarDados(destino, this.destino);
+		verificarDados(numeroVoo, "Companhia Aérea");
+		verificarDados(companhiaAerea, "Companhia Aérea");
+		verificarDados(destino, "Destino");
 		verificarHorario(horarioEmbarque, horarioSaida);
 		this.numeroVoo = numeroVoo;
 		this.companhiaAerea = companhiaAerea;
@@ -42,7 +42,7 @@ public class Voo {
 
 	public void alterarCompanhiaAerea(String companhiaAerea) {
 		verificarStatVoo();
-		verificarDados(companhiaAerea, this.companhiaAerea);
+		verificarDados(companhiaAerea, getCompanhiaAerea());
 		this.companhiaAerea = companhiaAerea;
 	}
 
@@ -67,7 +67,7 @@ public class Voo {
 
 	public void alterarDestino(String destino) {
 		verificarStatVoo();
-		verificarDados(destino, this.destino);
+		verificarDados(destino, getDestino());
 		this.destino = destino;
 	}
 
@@ -85,11 +85,11 @@ public class Voo {
 		}
 
 		if (horarioSaida.isBefore(horarioEmbarque)) {
-			throw new DateTimeParseException("Horário Inválido, o embarque deve ser antes da saída",
+			throw new DateTimeParseException("Horário Inválido, formato inadequada",
 					"dd/MM/yyyy HH:mm:ss", 0);
 		}
 		if (horarioEmbarque.equals(null) || horarioSaida.equals(null)) {
-			throw new NullPointerException("Horário inexitente, insira um novo hor[ario");
+			throw new BusinessException("Horários iguais, insira um novo horário onde a saída é depois do Embarque");
 		}
 	}
 
@@ -101,7 +101,13 @@ public class Voo {
 
 	private void verificarDados(String entrada, String campo) {
 		if (entrada == null || entrada.isBlank()) {
-			throw new BusinessException("Erro ao inserir uma informação inválida em " + Voo.class.getDeclaredFields());
+			throw new BusinessException("Erro ao inserir uma informação inválida em " + campo);
+		}
+		if(entrada.contains(" ")) {
+			throw new BusinessException("Erro ao inserir espaços em branco");
+		}
+		if(entrada.equalsIgnoreCase(campo)){
+			
 		}
 	}
 
