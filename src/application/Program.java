@@ -14,9 +14,8 @@ public class Program {
     	//Testando caracteres inválidos 
     	try { 
     		
-    		voo = new Voo("AA4566", "AZUL", LocalDateTime.parse("20/12/2025 12:55:22", Voo.FMT), LocalDateTime.parse("21/12/2025 13:55:22",Voo.FMT), "LASVEGAS");
-    		voo2 = new Voo("2601GB", "GOol", LocalDateTime.parse("25/12/2025 12:55:22", Voo.FMT ) , LocalDateTime.parse("26/12/2025 12:55:22", Voo.FMT ) , " Pimba");
-        	voo2.avancarStatus();
+    	voo = new Voo("la3456 ", "AZUL", LocalDateTime.parse("20/12/2025 12:55:22", Voo.FMT), LocalDateTime.parse("21/12/2025 13:55:22",Voo.FMT), " Las Vegas ");
+        voo.alterarCompanhiaAerea("latam");
         
     	}
     	catch(BusinessException e ) {
@@ -25,14 +24,26 @@ public class Program {
     	}
     	
     	System.out.println(voo);
+ 
+    	try { 
+    		
+    		voo2 = new Voo("  ", "GOol", LocalDateTime.parse("25/12/2025 12:55:22", Voo.FMT ) , LocalDateTime.parse("26/12/2025 12:55:22", Voo.FMT ) , " Roma ");
+        
+    	}
+    	catch(BusinessException e ) {
+    		System.out.println(e.getMessage());
+    		e.printStackTrace();
+    	}
+    	
     	System.out.println(voo2);
     	
     	
     	//verificando horários iguais
     	try {
     		
-    		voo3 = new Voo("89P600", "Latam", LocalDateTime.parse("25/12/2025 12:55:22", Voo.FMT ) , LocalDateTime.parse("25/12/2025 12:55:22", Voo.FMT ), "Utinga");
-        
+    		voo3 = new Voo("89P600", "Latam", LocalDateTime.parse("25/12/2025 12:55:22", Voo.FMT ) , LocalDateTime.parse("26/12/2025 12:55:22", Voo.FMT ), "Utinga");
+    		voo3.alterarDestino("  Pimba  ");
+    		
     	}
     	catch(BusinessException e) {
     		System.out.println(e.getMessage());
@@ -47,7 +58,8 @@ public class Program {
     		voo.alterarHorarios(null, null);
     	}
     	catch(BusinessException e){
-    		
+    		System.out.println(e.getMessage());
+    		e.printStackTrace();
     	}
     	
     	System.out.println(voo);
